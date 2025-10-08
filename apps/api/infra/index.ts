@@ -11,7 +11,7 @@ const githubRepoName = config.require("githubRepoName") || "estudeai";
 
 // 1. Artifact Registry (Container Registry)
 const artifactRegistry = new gcp.artifactregistry.Repository("estudeai-registry", {
-    repositoryId: "estudeai-api",
+    repositoryId: "estudeai",
     location: region,
     format: "DOCKER",
     description: "Container registry for EstudeAI API",
