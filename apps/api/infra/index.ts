@@ -54,16 +54,6 @@ const cloudRunService = new gcp.cloudrunv2.Service("estudeai-api", {
             ports: {
                 containerPort: 3000,
             },
-            envs: [
-                {
-                    name: "NODE_ENV",
-                    value: "production",
-                },
-                {
-                    name: "PORT",
-                    value: "3000",
-                },
-            ],
             resources: {
                 limits: {
                     cpu: "1",

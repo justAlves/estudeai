@@ -1,45 +1,47 @@
 steps:
-  # Install dependencies for the entire monorepo
+  # 1️⃣ Instalar dependências na raiz do monorepo
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
     dir: '.'
 
-  # Build the container image from the monorepo root
+  # 2️⃣ Buildar a imagem Docker da API
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-f', 'apps/api/Dockerfile',
-      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA',
-      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:latest',
-      '.'
-    ]
-    dir: '.'
+    args:
+      [
+        'build',
+        '-f', 'apps/api/Dockerfile',
+        '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:$COMMIT_SHA',
+        '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:latest',
+        '.'
+      ]
 
-  # Push the container image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'push',
-      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA'
-    ]
-
+  # 3️⃣ Fazer push da imagem com o tag do commit
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:latest'
+      'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:$COMMIT_SHA'
     ]
 
-  # Deploy container image to Cloud Run
+  # 4️⃣ Fazer push da imagem com o tag latest
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:latest'
+    ]
+
+  # 5️⃣ Fazer deploy no Cloud Run automaticamente
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args: [
-      'run',
-      'deploy',
-      'estudeai-api',
-      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA',
-      '--region', '${_REGION}',
-      '--platform', 'managed',
-      '--allow-unauthenticated'
-    ]
+    args:
+      [
+        'run',
+        'deploy',
+        'estudeai-api',
+        '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:$COMMIT_SHA',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated'
+      ]
 
 options:
   logging: CLOUD_LOGGING_ONLY
