@@ -1,0 +1,11 @@
+name: estudeai-infra
+description: Infrastructure for EstudeAI API on Google Cloud Platform
+runtime:
+  name: nodejs
+  options:
+    packagemanager: bun
+config:
+  pulumi:tags:
+    value:
+      project: estudeai
+      environment: production

@@ -1,0 +1,45 @@
+steps:
+  # Install dependencies for the entire monorepo
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    dir: '.'
+
+  # Build the container image from the monorepo root
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-f', 'apps/api/Dockerfile',
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA',
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:latest',
+      '.'
+    ]
+    dir: '.'
+
+  # Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA'
+    ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:latest'
+    ]
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [
+      'run',
+      'deploy',
+      'estudeai-api',
+      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/estudeai-api:$COMMIT_SHA',
+      '--region', '${_REGION}',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,0 +1,8 @@
+# Configuração do Pulumi para EstudeAI
+# Copie este arquivo para Pulumi.dev.yaml e configure os valores
+
+config:
+  gcp:project: your-gcp-project-id
+  gcp:region: us-central1
+  infra:githubOwner: justAlves
+  infra:githubRepoName: estudeai

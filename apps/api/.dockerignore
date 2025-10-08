@@ -1,0 +1,22 @@
+# .dockerignore
+
+# Ignorar dependências locais, elas serão instaladas no contêiner
+node_modules
+
+# Ignorar arquivos de ambiente e segredos
+.env
+.env.*
+
+# Ignorar arquivos do Pulumi e do Git
+.git
+.gitignore
+pulumi/
+Pulumi.yaml
+Pulumi.*.yaml
+infra/
+
+# Ignorar o próprio Dockerfile e arquivos de build
+Dockerfile
+.dockerignore
+dist
+build

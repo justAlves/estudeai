@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1752090244262,
+      "tag": "0000_bumpy_carmella_unuscione",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752801279394,
+      "tag": "0001_vengeful_aqueduct",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752961117474,
+      "tag": "0002_narrow_eternity",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1753409988780,
+      "tag": "0003_sour_molten_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1758225022928,
+      "tag": "0004_shiny_shiva",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1759949679547,
+      "tag": "0005_married_doctor_doom",
+      "breakpoints": true
+    }
+  ]
+}

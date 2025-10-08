@@ -1,0 +1,8 @@
+config:
+  gcp:project: estudeai15
+  gcp:region: us-central1
+  estudeai-infra:githubOwner: justAlves
+  estudeai-infra:githubRepoName: estudeai
+  estudeai-infra:project: estudeai15
+  estudeai-infra:region: us-central1
+  estudeai-infra:githubRepo: estudeai
