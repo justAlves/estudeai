@@ -10,8 +10,8 @@ const URLS = {
     PRODUCTION: "https://estudeai.vercel.app",
 }
 
-export const BASE_URL = BACKEND_URL.LOCAL;
-export const FRONTEND_URL = URLS.LOCAL;
+export const BASE_URL = BACKEND_URL.PRODUCTION;
+export const FRONTEND_URL = URLS.PRODUCTION;
 
 
 export const api = axios.create({
