@@ -1,10 +1,16 @@
 steps:
-  # 1️⃣ Instalar dependências na raiz do monorepo
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
+  # 1️⃣ Instalar pnpm
+  - name: 'node:20'
+    entrypoint: 'npm'
+    args: ['install', '-g', 'pnpm@latest']
+    
+  # 2️⃣ Instalar dependências na raiz do monorepo usando pnpm
+  - name: 'node:20'
+    entrypoint: 'pnpm'
+    args: ['install', '--frozen-lockfile']
     dir: '.'
 
-  # 2️⃣ Buildar a imagem Docker da API
+  # 3️⃣ Buildar a imagem Docker da API
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -15,21 +21,21 @@ steps:
         '.'
       ]
 
-  # 3️⃣ Fazer push da imagem com o tag do commit
+  # 4️⃣ Fazer push da imagem com o tag do commit
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
       'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:$COMMIT_SHA'
     ]
 
-  # 4️⃣ Fazer push da imagem com o tag latest
+  # 5️⃣ Fazer push da imagem com o tag latest
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
       'us-central1-docker.pkg.dev/$PROJECT_ID/estudeai/estudeai-api:latest'
     ]
 
-  # 5️⃣ Fazer deploy no Cloud Run automaticamente
+  # 6️⃣ Fazer deploy no Cloud Run automaticamente
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
