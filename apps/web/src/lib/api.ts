@@ -2,12 +2,12 @@ import axios from "axios";
 
 const BACKEND_URL = {
     LOCAL: "http://localhost:3000",
-    PRODUCTION: "https://estudeai-api-1039437243117.us-central1.run.app",
+    PRODUCTION: "https://api.estudyai.com.br",
 }
 
 const URLS = {
     LOCAL: "http://localhost:5173",
-    PRODUCTION: "https://estudeai.vercel.app",
+    PRODUCTION: "https://estudyai.com.br",
 }
 
 export const BASE_URL = BACKEND_URL.PRODUCTION;

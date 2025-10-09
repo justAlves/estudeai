@@ -34,7 +34,7 @@ export const auth = betterAuth({
   ], 
   trustedOrigins: [
     "http://localhost:5173", // Your frontend URL
-    "https://estudeai.vercel.app" // Your production URL
+    "https://estudyai.com.br" // Your production URL
   ]
 });
 
