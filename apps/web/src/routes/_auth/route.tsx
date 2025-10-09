@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth'
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Outlet } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
