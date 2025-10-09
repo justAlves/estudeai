@@ -11,6 +11,7 @@ import GoogleIcon from '@/assets/icons/google.png'
 import { auth } from '@/lib/auth'
 import { toast } from 'sonner'
 import { BrainCircuit, LogIn, Sparkles } from 'lucide-react'
+import { FRONTEND_URL } from '@/lib/api'
 
 export const Route = createFileRoute('/_auth/login')({
   component: RouteComponent,
@@ -61,7 +62,7 @@ function RouteComponent() {
   const handleGoogleLogin = async () => {
     await auth.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:5173/dashboard",
+      callbackURL: `${FRONTEND_URL}/dashboard`,
     })
   }
 

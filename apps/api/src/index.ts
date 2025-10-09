@@ -13,7 +13,7 @@ import { OpenAPI } from "./config/auth";
 const app = new Elysia()
   .use(
     cors({
-      origin: ["http://localhost:5173", "https://estudeai.vercel.app"], // Your frontend URL
+      origin: ["http://localhost:5173", "https://estudyai.com.br"], // Your frontend URL
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
