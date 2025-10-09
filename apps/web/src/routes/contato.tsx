@@ -59,7 +59,7 @@ function ContatoPage() {
               <BrainCircuit className="size-8 text-green-500 relative" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-              EstudeAI
+              Estudy AI
             </span>
           </Link>
           <Link to="/">
@@ -188,8 +188,8 @@ function ContatoPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-2">E-mail</h3>
-                  <a href="mailto:suporte@estudeai.com.br" className="text-muted-foreground hover:text-green-500 transition-colors">
-                    suporte@estudeai.com.br
+                  <a href="mailto:suporte@estudy.ai" className="text-muted-foreground hover:text-green-500 transition-colors">
+                    suporte@estudy.ai
                   </a>
                 </div>
               </Card>
@@ -263,7 +263,7 @@ function ContatoPage() {
                 <div className="absolute inset-0 bg-green-500/20 blur-md rounded-full"></div>
                 <BrainCircuit className="size-6 text-green-500 relative" />
               </div>
-              <span className="text-muted-foreground">© 2025 EstudeAI. Todos os direitos reservados.</span>
+              <span className="text-muted-foreground">© 2025 Estudy AI. Todos os direitos reservados.</span>
             </div>
             <div className="flex gap-8">
               <Link to="/termos" className="text-muted-foreground hover:text-green-500 transition-colors">Termos</Link>

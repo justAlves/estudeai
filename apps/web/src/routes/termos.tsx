@@ -21,7 +21,7 @@ function TermosPage() {
               <BrainCircuit className="size-8 text-green-500 relative" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-              EstudeAI
+              Estudy AI
             </span>
           </Link>
           <Link to="/">
@@ -52,7 +52,7 @@ function TermosPage() {
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold">1. Aceitação dos Termos</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Ao acessar e usar o EstudeAI, você concorda em cumprir e estar vinculado aos seguintes 
+                Ao acessar e usar o Estudy AI, você concorda em cumprir e estar vinculado aos seguintes 
                 termos e condições de uso. Se você não concordar com qualquer parte destes termos, 
                 não deverá usar nossos serviços.
               </p>
@@ -61,7 +61,7 @@ function TermosPage() {
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold">2. Descrição do Serviço</h2>
               <p className="text-muted-foreground leading-relaxed">
-                O EstudeAI é uma plataforma de estudos com inteligência artificial que oferece:
+                O Estudy AI é uma plataforma de estudos com inteligência artificial que oferece:
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                 <li>Geração de simulados personalizados para concursos públicos</li>
@@ -117,7 +117,7 @@ function TermosPage() {
               <h2 className="text-2xl font-semibold">6. Propriedade Intelectual</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Todo o conteúdo da plataforma, incluindo mas não limitado a textos, gráficos, 
-                logotipos, ícones, imagens, áudios, vídeos e software, é propriedade do EstudeAI 
+                logotipos, ícones, imagens, áudios, vídeos e software, é propriedade do Estudy AI 
                 ou de seus fornecedores de conteúdo e está protegido por leis de propriedade 
                 intelectual.
               </p>
@@ -130,7 +130,7 @@ function TermosPage() {
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold">7. Limitação de Responsabilidade</h2>
               <p className="text-muted-foreground leading-relaxed">
-                O EstudeAI é fornecido "como está" e não garantimos que o serviço será 
+                O Estudy AI é fornecido "como está" e não garantimos que o serviço será 
                 ininterrupto, livre de erros ou completamente seguro. As explicações e correções 
                 fornecidas pela IA são geradas automaticamente e devem ser usadas como material 
                 de apoio aos estudos.
@@ -180,14 +180,14 @@ function TermosPage() {
               <h2 className="text-2xl font-semibold">11. Contato</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Se você tiver dúvidas sobre estes Termos de Uso, entre em contato conosco através 
-                da página de contato ou pelo e-mail: suporte@estudeai.com.br
+                da página de contato ou pelo e-mail: suporte@estudy.ai
               </p>
             </section>
           </div>
 
           <div className="mt-16 p-8 rounded-2xl border border-border/50 bg-muted/30">
             <p className="text-sm text-muted-foreground text-center">
-              Ao usar o EstudeAI, você reconhece que leu, entendeu e concorda em estar vinculado 
+              Ao usar o Estudy AI, você reconhece que leu, entendeu e concorda em estar vinculado 
               a estes Termos de Uso.
             </p>
           </div>
@@ -203,7 +203,7 @@ function TermosPage() {
                 <div className="absolute inset-0 bg-green-500/20 blur-md rounded-full"></div>
                 <BrainCircuit className="size-6 text-green-500 relative" />
               </div>
-              <span className="text-muted-foreground">© 2025 EstudeAI. Todos os direitos reservados.</span>
+              <span className="text-muted-foreground">© 2025 Estudy AI. Todos os direitos reservados.</span>
             </div>
             <div className="flex gap-8">
               <Link to="/termos" className="text-green-500">Termos</Link>

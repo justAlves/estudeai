@@ -25,7 +25,7 @@ function App() {
               <BrainCircuit className="size-8 text-green-500 relative" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-              EstudeAI
+              Estudy AI
             </span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
@@ -305,7 +305,7 @@ function App() {
                 <div className="absolute inset-0 bg-green-500/20 blur-md rounded-full"></div>
                 <BrainCircuit className="size-6 text-green-500 relative" />
               </div>
-              <span className="text-muted-foreground">© 2025 EstudeAI. Todos os direitos reservados.</span>
+              <span className="text-muted-foreground">© 2025 Estudy AI. Todos os direitos reservados.</span>
             </div>
             <div className="flex gap-8">
               <Link to="/termos" className="text-muted-foreground hover:text-green-500 transition-colors">Termos</Link>

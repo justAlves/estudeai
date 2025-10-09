@@ -85,7 +85,7 @@ function RouteComponent() {
           <BrainCircuit className="size-8 text-green-500 relative" />
         </div>
         <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-          EstudeAI
+          Estudy AI
         </span>
       </Link>
 

@@ -21,7 +21,7 @@ function PrivacidadePage() {
               <BrainCircuit className="size-8 text-green-500 relative" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-              EstudeAI
+              Estudy AI
             </span>
           </Link>
           <Link to="/">
@@ -56,12 +56,12 @@ function PrivacidadePage() {
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold">1. Introdução</h2>
               <p className="text-muted-foreground leading-relaxed">
-                A EstudeAI ("nós", "nosso" ou "nossa") está comprometida em proteger sua privacidade. 
+                A Estudy AI ("nós", "nosso" ou "nossa") está comprometida em proteger sua privacidade. 
                 Esta Política de Privacidade explica como coletamos, usamos, divulgamos e protegemos 
                 suas informações quando você usa nossa plataforma de estudos com inteligência artificial.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Ao usar o EstudeAI, você concorda com a coleta e uso de informações de acordo com 
+                Ao usar o Estudy AI, você concorda com a coleta e uso de informações de acordo com 
                 esta política.
               </p>
             </section>
@@ -163,8 +163,8 @@ function PrivacidadePage() {
                 <li><strong>Oposição:</strong> Opor-se a determinados tipos de processamento</li>
                 <li><strong>Revisão:</strong> Solicitar revisão de decisões automatizadas</li>
               </ul>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Para exercer seus direitos, entre em contato através do e-mail: privacidade@estudeai.com.br
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                Para exercer seus direitos, entre em contato através do e-mail: privacidade@estudy.ai
               </p>
             </section>
 
@@ -221,8 +221,8 @@ function PrivacidadePage() {
                 entre em contato conosco:
               </p>
               <div className="bg-muted/30 p-6 rounded-lg space-y-2 mt-4">
-                <p className="text-muted-foreground"><strong>E-mail:</strong> privacidade@estudeai.com.br</p>
-                <p className="text-muted-foreground"><strong>Encarregado de Dados (DPO):</strong> dpo@estudeai.com.br</p>
+                <p className="text-muted-foreground"><strong>E-mail:</strong> privacidade@estudy.ai</p>
+                <p className="text-muted-foreground"><strong>Encarregado de Dados (DPO):</strong> dpo@estudy.ai</p>
               </div>
             </section>
           </div>
@@ -251,7 +251,7 @@ function PrivacidadePage() {
                 <div className="absolute inset-0 bg-green-500/20 blur-md rounded-full"></div>
                 <BrainCircuit className="size-6 text-green-500 relative" />
               </div>
-              <span className="text-muted-foreground">© 2025 EstudeAI. Todos os direitos reservados.</span>
+              <span className="text-muted-foreground">© 2025 Estudy AI. Todos os direitos reservados.</span>
             </div>
             <div className="flex gap-8">
               <Link to="/termos" className="text-muted-foreground hover:text-green-500 transition-colors">Termos</Link>
