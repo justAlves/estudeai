@@ -9,7 +9,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden w-full">
       {/* Animated Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
@@ -28,13 +28,9 @@ function App() {
               Estudy AI
             </span>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#features" className="text-sm hover:text-green-500 transition-colors">Recursos</a>
-            <a href="#pricing" className="text-sm hover:text-green-500 transition-colors">Planos</a>
-          </nav>
           <Link to="/login">
-            <Button variant="outline" size="sm">
-              Entrar
+            <Button variant="outline" size="default">
+              Começar agora 🚀
             </Button>
           </Link>
         </div>

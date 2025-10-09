@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { auth } from '@/lib/auth'
+import { Sidebar, SidebarContent, SidebarHeader, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
@@ -24,5 +25,20 @@ function RouteComponent() {
     getAuth()
   }, [])
 
-  return <Outlet/>
+  return (
+    <>
+      <Sidebar variant='floating' collapsible='icon'>
+        <SidebarHeader>
+          <SidebarTrigger/>
+        </SidebarHeader>
+          <SidebarContent>
+            
+          </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <Outlet/>
+      </SidebarInset>
+      
+    </>
+  )
 }

@@ -25,7 +25,7 @@ function RouteComponent() {
   }, [])
 
   return (
-    <div className='max-h-screen h-screen flex flex-col'>
+    <div className='max-h-screen h-screen flex flex-col w-full'>
       <Outlet />
     </div>
   )
