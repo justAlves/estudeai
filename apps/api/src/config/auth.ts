@@ -37,13 +37,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:5173", // Your frontend URL
     "https://estudeai.vercel.app" // Your production URL
-  ],
-  advanced: {
-    useSecureCookies: process.env.NODE_ENV === "production",
-    crossSubDomainCookies: {
-      enabled: false,
-    }
-  }
+  ]
 });
 
 let _schema: ReturnType<typeof auth.api.generateOpenAPISchema>
