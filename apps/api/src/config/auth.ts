@@ -12,6 +12,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    autoSignIn: true,
   },
   socialProviders: {
     google: {
@@ -34,7 +35,7 @@ export const auth = betterAuth({
     openAPI()
   ], 
   trustedOrigins: [
-    "http://localhost:3000", // Your frontend URL
+    "http://localhost:5173", // Your frontend URL
     "https://estudeai.vercel.app" // Your production URL
   ],
 
