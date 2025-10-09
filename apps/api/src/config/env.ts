@@ -12,6 +12,7 @@ const envSchema = z.object({
     RESEND_API_KEY: z.string(),
     AXIOM_TOKEN: z.string(),
     REDIRECT_URI: z.string(),
+    BETTER_AUTH_URL: z.string(),
     GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
 })
 
