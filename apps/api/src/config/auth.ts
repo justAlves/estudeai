@@ -20,14 +20,12 @@ export const auth = betterAuth({
       clientSecret: env.GOOGLE_CLIENT_SECRET!,
     }
   },
-  user: {
-    additionalFields: {
-      isPremium: {
-        type: "boolean",
-        required: false,
-        returned: true,
-        fieldName: "isPremium"
-      }
+  session: {
+    expiresIn: 7 * 24 * 60 * 60,
+    updateAge: 60 * 60 * 24,
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60
     }
   },
   plugins: [
