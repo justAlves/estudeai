@@ -9,11 +9,12 @@ import { opentelemetry } from "@elysiajs/opentelemetry";
 import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-node";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
 import { OpenAPI } from "./config/auth";
+import { simuladoController } from "./modules/simulado";
 
 const app = new Elysia()
   .use(
     cors({
-      origin: ["http://localhost:5173", "https://estudyai.com.br"], // Your frontend URL
+      origin: ["http://localhost:5174", "https://estudyai.com.br"], // Your frontend URL
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
@@ -51,8 +52,14 @@ const app = new Elysia()
   .use(authController)
   .use(userController)
   .use(uploadController)
+  .use(simuladoController)
   .get("/health", () => "Healthy")
-  .listen(3000);
+  .listen({
+    port: 3000,
+    development: process.env.NODE_ENV !== "production",
+    // Add timeout for requests
+    maxRequestBodySize: 1024 * 1024 * 10, // 10MB
+  });
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

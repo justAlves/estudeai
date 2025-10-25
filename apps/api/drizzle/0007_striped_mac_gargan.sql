@@ -1,0 +1,1 @@
+ALTER TABLE "simulado" ADD COLUMN "status" text DEFAULT 'pending' NOT NULL;

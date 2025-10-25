@@ -33,7 +33,7 @@ export const auth = betterAuth({
     openAPI()
   ], 
   trustedOrigins: [
-    "http://localhost:5173", // Your frontend URL
+    "http://localhost:5174", // Your frontend URL
     "https://estudyai.com.br" // Your production URL
   ]
 });

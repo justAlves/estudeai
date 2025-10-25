@@ -5,6 +5,8 @@ import { account } from "./account.table";
 import { session } from "./session.table";
 import { member } from "./member.table";
 import { invitation } from "./invitation.table";
+import { simulado } from "./simulado.table";
+import { userResponse } from "./userResponse.table";
 
 export const user = pgTable("user", {
   id: text('id').primaryKey().$defaultFn(createId),
@@ -25,4 +27,6 @@ export const userRelations = relations(user, ({ many, one }) => ({
   sessions: many(session),
   members: many(member),
   invitations: many(invitation),
+  simulados: many(simulado),
+  userResponses: many(userResponse),
 }));

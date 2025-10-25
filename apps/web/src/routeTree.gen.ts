@@ -17,7 +17,10 @@ import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as AppSimuladosRouteImport } from './routes/_app/simulados'
+import { Route as AppRedacoesRouteImport } from './routes/_app/redacoes'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppSimuladoIdRouteImport } from './routes/_app/simulado/$id'
 
 const TermosRoute = TermosRouteImport.update({
   id: '/termos',
@@ -57,9 +60,24 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AppSimuladosRoute = AppSimuladosRouteImport.update({
+  id: '/simulados',
+  path: '/simulados',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRedacoesRoute = AppRedacoesRouteImport.update({
+  id: '/redacoes',
+  path: '/redacoes',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSimuladoIdRoute = AppSimuladoIdRouteImport.update({
+  id: '/simulado/$id',
+  path: '/simulado/$id',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
@@ -69,8 +87,11 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AppDashboardRoute
+  '/redacoes': typeof AppRedacoesRoute
+  '/simulados': typeof AppSimuladosRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/simulado/$id': typeof AppSimuladoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,8 +99,11 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AppDashboardRoute
+  '/redacoes': typeof AppRedacoesRoute
+  '/simulados': typeof AppSimuladosRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/simulado/$id': typeof AppSimuladoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -90,8 +114,11 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/redacoes': typeof AppRedacoesRoute
+  '/_app/simulados': typeof AppSimuladosRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
+  '/_app/simulado/$id': typeof AppSimuladoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,8 +128,11 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/dashboard'
+    | '/redacoes'
+    | '/simulados'
     | '/login'
     | '/register'
+    | '/simulado/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -110,8 +140,11 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/dashboard'
+    | '/redacoes'
+    | '/simulados'
     | '/login'
     | '/register'
+    | '/simulado/$id'
   id:
     | '__root__'
     | '/'
@@ -121,8 +154,11 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/_app/dashboard'
+    | '/_app/redacoes'
+    | '/_app/simulados'
     | '/_auth/login'
     | '/_auth/register'
+    | '/_app/simulado/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -192,6 +228,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_app/simulados': {
+      id: '/_app/simulados'
+      path: '/simulados'
+      fullPath: '/simulados'
+      preLoaderRoute: typeof AppSimuladosRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/redacoes': {
+      id: '/_app/redacoes'
+      path: '/redacoes'
+      fullPath: '/redacoes'
+      preLoaderRoute: typeof AppRedacoesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -199,15 +249,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_app/simulado/$id': {
+      id: '/_app/simulado/$id'
+      path: '/simulado/$id'
+      fullPath: '/simulado/$id'
+      preLoaderRoute: typeof AppSimuladoIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppRedacoesRoute: typeof AppRedacoesRoute
+  AppSimuladosRoute: typeof AppSimuladosRoute
+  AppSimuladoIdRoute: typeof AppSimuladoIdRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppRedacoesRoute: AppRedacoesRoute,
+  AppSimuladosRoute: AppSimuladosRoute,
+  AppSimuladoIdRoute: AppSimuladoIdRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

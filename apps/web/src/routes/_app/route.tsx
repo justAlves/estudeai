@@ -59,6 +59,7 @@ function RouteComponent() {
           <SidebarMenu className={cn("space-y-4", !open && 'w-full pl-1')}>
             <SidebarMenuItem>
               <SidebarMenuButton 
+                onClick={() => navigate({ to: '/dashboard' })}
                 className={cn(
                   'w-full', 
                   !open && 'justify-center p-3', 
@@ -72,6 +73,7 @@ function RouteComponent() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton 
+                onClick={() => navigate({ to: '/simulados' })}
                 className={cn(
                   'w-full', 
                   !open && 'justify-center p-3', 
@@ -85,6 +87,7 @@ function RouteComponent() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton 
+                onClick={() => navigate({ to: '/redacoes' })}
                 className={cn(
                   'w-full', 
                   !open && 'justify-center p-3', 
