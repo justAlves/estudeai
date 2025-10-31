@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { api } from '@/lib/api'
 import { auth } from '@/lib/auth'
 import { uploadProfileImage } from '@/api/services/upload'
 import { useUserStore } from '@/store/user.store'

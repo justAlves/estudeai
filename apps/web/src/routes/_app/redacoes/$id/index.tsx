@@ -9,8 +9,6 @@ import {
   CheckCircle2,
   FileText,
   Target,
-  TrendingUp,
-  AlertCircle,
   MessageSquare,
   Send,
   Building2

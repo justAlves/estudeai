@@ -97,9 +97,9 @@ function RouteComponent() {
     if (!simulados) return null
     
     const total = simulados.length
-    const completed = simulados.filter(s => getSimuladoStatus(s) === 'answered').length
-    const pending = simulados.filter(s => getSimuladoStatus(s) === 'pending').length
-    const waiting = simulados.filter(s => getSimuladoStatus(s) === 'waiting_response').length
+    const completed = simulados.filter((s: Simulado) => getSimuladoStatus(s) === 'answered').length
+    const pending = simulados.filter((s: Simulado) => getSimuladoStatus(s) === 'pending').length
+    const waiting = simulados.filter((s: Simulado) => getSimuladoStatus(s) === 'waiting_response').length
     
     return { total, completed, pending, waiting }
   }, [simulados])
@@ -108,9 +108,9 @@ function RouteComponent() {
     if (!filteredSimulados) return null
     
     const total = filteredSimulados.length
-    const completed = filteredSimulados.filter(s => getSimuladoStatus(s) === 'answered').length
-    const pending = filteredSimulados.filter(s => getSimuladoStatus(s) === 'pending').length
-    const waiting = filteredSimulados.filter(s => getSimuladoStatus(s) === 'waiting_response').length
+    const completed = filteredSimulados.filter((s: Simulado) => getSimuladoStatus(s) === 'answered').length
+    const pending = filteredSimulados.filter((s: Simulado) => getSimuladoStatus(s) === 'pending').length
+    const waiting = filteredSimulados.filter((s: Simulado) => getSimuladoStatus(s) === 'waiting_response').length
     
     return { total, completed, pending, waiting }
   }, [filteredSimulados])

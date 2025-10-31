@@ -19,9 +19,9 @@ export const useGetRedacaoById = (id: string) => {
         queryKey: ["redacao", id],
         queryFn: () => getRedacaoById(id),
         enabled: !!id,
-        refetchInterval: (data) => {
+        refetchInterval: (query) => {
             // Se está corrigindo, refetch mais frequentemente
-            if (data?.status === "correcting") {
+            if (query.data?.status === "correcting") {
                 return 1000 * 10 // A cada 10 segundos
             }
             return false
