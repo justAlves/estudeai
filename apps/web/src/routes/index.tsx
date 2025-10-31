@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { BrainCircuit, FileCheck, MessageSquareText, Sparkles, Zap, Target, ArrowRight, Check, TrendingUp, PlayCircle, Shield, Clock, Star, ChevronDown, BarChart3, Rocket, X } from 'lucide-react'
+import { BrainCircuit, FileCheck, MessageSquareText, Sparkles, Zap, Target, ArrowRight, Check, PlayCircle, Shield, Clock, Star, ChevronDown, BarChart3, Rocket } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -92,38 +92,6 @@ function App() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="container mx-auto px-6 py-16 md:py-24 relative">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-                10K+
-              </div>
-              <div className="text-sm md:text-base text-muted-foreground">Usuários ativos</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-                50K+
-              </div>
-              <div className="text-sm md:text-base text-muted-foreground">Simulados realizados</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-                85%
-              </div>
-              <div className="text-sm md:text-base text-muted-foreground">Taxa de aprovação</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-                4.8/5
-              </div>
-              <div className="text-sm md:text-base text-muted-foreground">Avaliação média</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
       <section className="container mx-auto px-6 py-24 md:py-32 relative">
         <div className="max-w-6xl mx-auto">
@@ -164,7 +132,7 @@ function App() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Configure seu perfil</h3>
                 <p className="text-muted-foreground">
-                  Informe o concurso que você vai prestar e nossa IA ajusta o conteúdo para você.
+                  Informe a matéria e a banca que irá concursar e nossa IA ajusta o conteúdo para você.
                 </p>
               </Card>
             </div>
@@ -226,20 +194,7 @@ function App() {
             </div>
             <div className="relative">
               <div className="aspect-video rounded-xl border border-border/50 bg-muted/30 overflow-hidden shadow-2xl">
-                {/* Placeholder para imagem/vídeo */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500/10 to-emerald-500/10">
-                  <div className="text-center space-y-4 p-8">
-                    <div className="size-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto">
-                      <PlayCircle className="size-8 text-white" />
-                    </div>
-                    <p className="text-sm text-muted-foreground font-medium">
-                      Preview da plataforma
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Adicione uma imagem ou vídeo aqui
-                    </p>
-                  </div>
-                </div>
+                <img src="/screenshot.png" alt="screenshot" className="w-full h-full object-cover object-left" />
               </div>
             </div>
           </div>
@@ -269,7 +224,7 @@ function App() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Simulados com IA</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Gere simulados personalizados baseados no edital do seu concurso. 
+                Gere simulados personalizados baseados na matéria e banca que você irá concursar. 
                 A IA seleciona questões no nível certo para você.
               </p>
             </Card>
@@ -561,7 +516,7 @@ function App() {
                 <ChevronDown className="size-5 text-muted-foreground" />
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Nossa IA analisa o edital do seu concurso e cria simulados adaptados ao seu nível de conhecimento, 
+                Nossa IA analisa a matéria e banca que você irá concursar e cria simulados adaptados ao seu nível de conhecimento, 
                 focando nas áreas que você mais precisa estudar. Quanto mais você usa a plataforma, mais preciso fica o algoritmo.
               </p>
             </Card>
@@ -605,8 +560,8 @@ function App() {
                 <ChevronDown className="size-5 text-muted-foreground" />
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                No plano gratuito, você tem acesso a simulados pré-gerados ilimitados. 
-                Para simulados personalizados gerados por IA, você precisa do plano Premium.
+                No plano gratuito, você tem acesso a 1 simulado e 1 correção de redação por semana.
+                Para mais simulados e correções de redação, você precisa do plano Premium.
               </p>
             </Card>
           </div>
@@ -662,12 +617,6 @@ function App() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/termos" className="hover:text-foreground transition-colors">Termos</Link></li>
                 <li><Link to="/privacidade" className="hover:text-foreground transition-colors">Privacidade</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Suporte</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/contato" className="hover:text-foreground transition-colors">Contato</Link></li>
               </ul>
             </div>
           </div>

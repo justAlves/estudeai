@@ -483,7 +483,7 @@ function RouteComponent() {
       </Card>
 
       {/* Sessão Section */}
-      <Card className="border-border/50 border-destructive/20">
+      <Card className="border-destructive/20">
         <CardHeader>
           <CardTitle className="text-destructive">Sessão</CardTitle>
           <CardDescription>
