@@ -437,18 +437,10 @@ function App() {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-square rounded-xl border border-border/50 bg-muted/30 overflow-hidden shadow-2xl">
+              <div className="aspect-square rounded-xl overflow-hidden shadow-2xl">
                 {/* Placeholder para imagem de benefícios */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500/10 to-emerald-500/10">
-                  <div className="text-center space-y-4 p-8">
-                    <TrendingUp className="size-16 text-green-500 mx-auto" />
-                    <p className="text-sm text-muted-foreground font-medium">
-                      Imagem de benefícios
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Adicione uma imagem ou ilustração aqui
-                    </p>
-                  </div>
+                <div className="w-full h-full flex items-center justify-center">
+                  <img src='/robot.png' alt='robot' className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
