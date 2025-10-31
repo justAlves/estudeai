@@ -70,6 +70,7 @@ export function SimuladoFormDialog({
                       type="number"
                       placeholder="Ex: 30"
                       className="text-foreground"
+                      max={30}
                       {...field}
                     />
                   </FormControl>

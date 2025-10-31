@@ -18,6 +18,7 @@ import { getSimuladoStatus } from '@/lib/simulados-helpers'
 import { UpgradeModal } from '@/components/subscription/upgrade-modal'
 import { useSubscriptionStatus, useCreateCheckoutSession } from '@/api/hooks/useSubscription'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/_app/simulados')({
   component: RouteComponent,
@@ -76,6 +77,12 @@ function RouteComponent() {
   })
 
   const onSubmit = (data: SimuladoFormValues) => {
+
+    if (Number(data.quantidadeQuestoes) > 30) {
+      toast.error("Quantidade de questões máxima é 30")
+      return
+    }
+
     const formattedData = {
       ...data,
       quantidadeQuestoes: parseInt(data.quantidadeQuestoes, 10)
