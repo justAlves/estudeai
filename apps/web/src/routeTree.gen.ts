@@ -18,9 +18,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AppSimuladosRouteImport } from './routes/_app/simulados'
-import { Route as AppRedacoesRouteImport } from './routes/_app/redacoes'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppConfiguracoesRouteImport } from './routes/_app/configuracoes'
+import { Route as AppRedacoesIndexRouteImport } from './routes/_app/redacoes/index'
 import { Route as AppSimuladoIdRouteImport } from './routes/_app/simulado/$id'
+import { Route as AppRedacoesNewRouteImport } from './routes/_app/redacoes/new'
+import { Route as AppRedacoesIdIndexRouteImport } from './routes/_app/redacoes/$id/index'
+import { Route as AppRedacoesIdEditRouteImport } from './routes/_app/redacoes/$id/edit'
 
 const TermosRoute = TermosRouteImport.update({
   id: '/termos',
@@ -65,19 +69,39 @@ const AppSimuladosRoute = AppSimuladosRouteImport.update({
   path: '/simulados',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppRedacoesRoute = AppRedacoesRouteImport.update({
-  id: '/redacoes',
-  path: '/redacoes',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRedacoesIndexRoute = AppRedacoesIndexRouteImport.update({
+  id: '/redacoes/',
+  path: '/redacoes/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppSimuladoIdRoute = AppSimuladoIdRouteImport.update({
   id: '/simulado/$id',
   path: '/simulado/$id',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRedacoesNewRoute = AppRedacoesNewRouteImport.update({
+  id: '/redacoes/new',
+  path: '/redacoes/new',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRedacoesIdIndexRoute = AppRedacoesIdIndexRouteImport.update({
+  id: '/redacoes/$id/',
+  path: '/redacoes/$id/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRedacoesIdEditRoute = AppRedacoesIdEditRouteImport.update({
+  id: '/redacoes/$id/edit',
+  path: '/redacoes/$id/edit',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
@@ -86,24 +110,32 @@ export interface FileRoutesByFullPath {
   '/contato': typeof ContatoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/configuracoes': typeof AppConfiguracoesRoute
   '/dashboard': typeof AppDashboardRoute
-  '/redacoes': typeof AppRedacoesRoute
   '/simulados': typeof AppSimuladosRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/redacoes/new': typeof AppRedacoesNewRoute
   '/simulado/$id': typeof AppSimuladoIdRoute
+  '/redacoes': typeof AppRedacoesIndexRoute
+  '/redacoes/$id/edit': typeof AppRedacoesIdEditRoute
+  '/redacoes/$id': typeof AppRedacoesIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/configuracoes': typeof AppConfiguracoesRoute
   '/dashboard': typeof AppDashboardRoute
-  '/redacoes': typeof AppRedacoesRoute
   '/simulados': typeof AppSimuladosRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/redacoes/new': typeof AppRedacoesNewRoute
   '/simulado/$id': typeof AppSimuladoIdRoute
+  '/redacoes': typeof AppRedacoesIndexRoute
+  '/redacoes/$id/edit': typeof AppRedacoesIdEditRoute
+  '/redacoes/$id': typeof AppRedacoesIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,12 +145,16 @@ export interface FileRoutesById {
   '/contato': typeof ContatoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/_app/configuracoes': typeof AppConfiguracoesRoute
   '/_app/dashboard': typeof AppDashboardRoute
-  '/_app/redacoes': typeof AppRedacoesRoute
   '/_app/simulados': typeof AppSimuladosRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
+  '/_app/redacoes/new': typeof AppRedacoesNewRoute
   '/_app/simulado/$id': typeof AppSimuladoIdRoute
+  '/_app/redacoes/': typeof AppRedacoesIndexRoute
+  '/_app/redacoes/$id/edit': typeof AppRedacoesIdEditRoute
+  '/_app/redacoes/$id/': typeof AppRedacoesIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,24 +163,32 @@ export interface FileRouteTypes {
     | '/contato'
     | '/privacidade'
     | '/termos'
+    | '/configuracoes'
     | '/dashboard'
-    | '/redacoes'
     | '/simulados'
     | '/login'
     | '/register'
+    | '/redacoes/new'
     | '/simulado/$id'
+    | '/redacoes'
+    | '/redacoes/$id/edit'
+    | '/redacoes/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contato'
     | '/privacidade'
     | '/termos'
+    | '/configuracoes'
     | '/dashboard'
-    | '/redacoes'
     | '/simulados'
     | '/login'
     | '/register'
+    | '/redacoes/new'
     | '/simulado/$id'
+    | '/redacoes'
+    | '/redacoes/$id/edit'
+    | '/redacoes/$id'
   id:
     | '__root__'
     | '/'
@@ -153,12 +197,16 @@ export interface FileRouteTypes {
     | '/contato'
     | '/privacidade'
     | '/termos'
+    | '/_app/configuracoes'
     | '/_app/dashboard'
-    | '/_app/redacoes'
     | '/_app/simulados'
     | '/_auth/login'
     | '/_auth/register'
+    | '/_app/redacoes/new'
     | '/_app/simulado/$id'
+    | '/_app/redacoes/'
+    | '/_app/redacoes/$id/edit'
+    | '/_app/redacoes/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -235,18 +283,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSimuladosRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/redacoes': {
-      id: '/_app/redacoes'
-      path: '/redacoes'
-      fullPath: '/redacoes'
-      preLoaderRoute: typeof AppRedacoesRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/configuracoes': {
+      id: '/_app/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AppConfiguracoesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/redacoes/': {
+      id: '/_app/redacoes/'
+      path: '/redacoes'
+      fullPath: '/redacoes'
+      preLoaderRoute: typeof AppRedacoesIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/simulado/$id': {
@@ -256,21 +311,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSimuladoIdRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_app/redacoes/new': {
+      id: '/_app/redacoes/new'
+      path: '/redacoes/new'
+      fullPath: '/redacoes/new'
+      preLoaderRoute: typeof AppRedacoesNewRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/redacoes/$id/': {
+      id: '/_app/redacoes/$id/'
+      path: '/redacoes/$id'
+      fullPath: '/redacoes/$id'
+      preLoaderRoute: typeof AppRedacoesIdIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/redacoes/$id/edit': {
+      id: '/_app/redacoes/$id/edit'
+      path: '/redacoes/$id/edit'
+      fullPath: '/redacoes/$id/edit'
+      preLoaderRoute: typeof AppRedacoesIdEditRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
+  AppConfiguracoesRoute: typeof AppConfiguracoesRoute
   AppDashboardRoute: typeof AppDashboardRoute
-  AppRedacoesRoute: typeof AppRedacoesRoute
   AppSimuladosRoute: typeof AppSimuladosRoute
+  AppRedacoesNewRoute: typeof AppRedacoesNewRoute
   AppSimuladoIdRoute: typeof AppSimuladoIdRoute
+  AppRedacoesIndexRoute: typeof AppRedacoesIndexRoute
+  AppRedacoesIdEditRoute: typeof AppRedacoesIdEditRoute
+  AppRedacoesIdIndexRoute: typeof AppRedacoesIdIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppConfiguracoesRoute: AppConfiguracoesRoute,
   AppDashboardRoute: AppDashboardRoute,
-  AppRedacoesRoute: AppRedacoesRoute,
   AppSimuladosRoute: AppSimuladosRoute,
+  AppRedacoesNewRoute: AppRedacoesNewRoute,
   AppSimuladoIdRoute: AppSimuladoIdRoute,
+  AppRedacoesIndexRoute: AppRedacoesIndexRoute,
+  AppRedacoesIdEditRoute: AppRedacoesIdEditRoute,
+  AppRedacoesIdIndexRoute: AppRedacoesIdIndexRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

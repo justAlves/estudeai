@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -72,28 +71,28 @@ function RouteComponent() {
   
   return (
     <div className='min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4'>
-      {/* Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      {/* Subtle Grid Background */}
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] opacity-40 pointer-events-none"></div>
       
-      {/* Gradient Glow */}
-      <div className="opacity-30 absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-b from-green-500/20 via-emerald-500/10 to-transparent blur-3xl rounded-full pointer-events-none"></div>
+      {/* Subtle Top Gradient */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-green-500/8 via-emerald-500/4 to-transparent blur-3xl rounded-full pointer-events-none"></div>
       
       {/* Logo/Brand */}
-      <Link to="/" className="absolute top-8 left-8 flex items-center gap-2 group">
+      <Link to="/" className="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-3 group z-10">
         <div className="relative">
-          <div className="absolute inset-0 bg-green-500/20 blur-lg rounded-full"></div>
-          <BrainCircuit className="size-8 text-green-500 relative" />
+          <div className="absolute inset-0 bg-green-500/10 blur-md rounded-lg group-hover:bg-green-500/20 transition-colors"></div>
+          <BrainCircuit className="size-7 text-green-500 relative" />
         </div>
-        <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
+        <span className="text-xl font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
           Estudy AI
         </span>
       </Link>
 
-      <Card className='w-full max-w-md flex flex-col items-center backdrop-blur-sm bg-background/50 border-border/50 relative z-10'>
-        <CardHeader className='w-full flex flex-col items-center space-y-3 pb-6'>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-sm">
-            <Sparkles className="size-4 text-green-500" />
-            <span className="text-xs font-medium text-green-600">Comece grátis</span>
+      <Card className='w-full max-w-md border-border/50 bg-card relative z-10'>
+        <CardHeader className='w-full flex flex-col items-center space-y-4 pb-6'>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 text-green-600 dark:text-green-400 text-sm font-medium">
+            <Sparkles className="size-3.5" />
+            <span>Comece grátis</span>
           </div>
           <CardTitle className='text-3xl font-bold tracking-tight'>
             Crie sua conta
@@ -139,7 +138,7 @@ function RouteComponent() {
               <div className='pt-2'>
                 <Button
                   type='submit'
-                  className='w-full shadow-lg shadow-green-500/25'
+                  className='w-full shadow-md shadow-green-500/10 hover:shadow-green-500/20 font-medium'
                   size='lg'
                 >
                   <UserPlus className="size-4 mr-2" />
@@ -153,7 +152,7 @@ function RouteComponent() {
                 <Button 
                   variant='link' 
                   type='button' 
-                  className='text-sm font-semibold text-green-500 hover:text-green-600 h-auto p-0' 
+                  className='text-sm font-semibold text-green-600 hover:text-green-700 h-auto p-0' 
                   onClick={handleLogin}
                 >
                   Fazer login
@@ -161,11 +160,11 @@ function RouteComponent() {
               </div>
               <p className='text-xs text-center text-muted-foreground pt-2'>
                 Ao criar uma conta, você concorda com nossos{' '}
-                <Link to="/termos" className='text-green-500 hover:text-green-600'>
+                <Link to="/termos" className='text-green-600 hover:text-green-700 font-medium'>
                   Termos de Uso
                 </Link>
                 {' '}e{' '}
-                <Link to="/privacidade" className='text-green-500 hover:text-green-600'>
+                <Link to="/privacidade" className='text-green-600 hover:text-green-700 font-medium'>
                   Política de Privacidade
                 </Link>
               </p>

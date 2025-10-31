@@ -1,0 +1,1 @@
+ALTER TABLE "redacao" ALTER COLUMN "bank" DROP NOT NULL;

@@ -80,28 +80,28 @@ function RouteComponent() {
   
   return (
     <div className='min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4'>
-      {/* Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      {/* Subtle Grid Background */}
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] opacity-40 pointer-events-none"></div>
       
-      {/* Gradient Glow */}
-      <div className="opacity-30 absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-b from-green-500/20 via-emerald-500/10 to-transparent blur-3xl rounded-full pointer-events-none"></div>
+      {/* Subtle Top Gradient */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-green-500/8 via-emerald-500/4 to-transparent blur-3xl rounded-full pointer-events-none"></div>
       
       {/* Logo/Brand */}
-      <Link to="/" className="absolute top-8 left-8 flex items-center gap-2 group">
+      <Link to="/" className="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-3 group z-10">
         <div className="relative">
-          <div className="absolute inset-0 bg-green-500/20 blur-lg rounded-full"></div>
-          <BrainCircuit className="size-8 text-green-500 relative" />
+          <div className="absolute inset-0 bg-green-500/10 blur-md rounded-lg group-hover:bg-green-500/20 transition-colors"></div>
+          <BrainCircuit className="size-7 text-green-500 relative" />
         </div>
-        <span className="text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
+        <span className="text-xl font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
           Estudy AI
         </span>
       </Link>
 
-      <Card className='w-full max-w-md flex flex-col items-center backdrop-blur-sm bg-background/50 border-border/50 relative z-10'>
-        <CardHeader className='w-full flex flex-col items-center space-y-3 pb-6'>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-sm">
-            <Sparkles className="size-4 text-green-500" />
-            <span className="text-xs font-medium text-green-600">Bem-vindo de volta</span>
+      <Card className='w-full max-w-md border-border/50 bg-card relative z-10'>
+        <CardHeader className='w-full flex flex-col items-center space-y-4 pb-6'>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 text-green-600 dark:text-green-400 text-sm font-medium">
+            <Sparkles className="size-3.5" />
+            <span>Bem-vindo de volta</span>
           </div>
           <CardTitle className='text-3xl font-bold tracking-tight'>
             Entre na sua conta
@@ -111,8 +111,8 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent className='w-full space-y-6'>
-          <Button variant='outline' className='w-full' onClick={handleGoogleLogin}>
-            <img src={GoogleIcon} alt='Google' className='w-4 h-4' />
+          <Button variant='outline' className='w-full font-medium' onClick={handleGoogleLogin}>
+            <img src={GoogleIcon} alt='Google' className='w-4 h-4 mr-2' />
             Continuar com Google
           </Button>
           
@@ -121,7 +121,7 @@ function RouteComponent() {
               <Separator />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
+              <span className="bg-card px-2 text-muted-foreground">
                 Ou entre com email
               </span>
             </div>
@@ -148,7 +148,7 @@ function RouteComponent() {
                 <Button 
                   variant='link' 
                   type='button' 
-                  className='text-sm text-muted-foreground hover:text-green-500 h-auto p-0' 
+                  className='text-sm text-muted-foreground hover:text-green-600 h-auto p-0 font-medium' 
                   onClick={handleForgotPassword}
                 >
                   Esqueceu sua senha?
@@ -156,7 +156,7 @@ function RouteComponent() {
               </div>
               <Button
                 type='submit'
-                className='w-full shadow-lg shadow-green-500/25 group'
+                className='w-full shadow-md shadow-green-500/10 hover:shadow-green-500/20 font-medium'
                 size='lg'
               >
                 <LogIn className="size-4 mr-2" />
@@ -169,7 +169,7 @@ function RouteComponent() {
                 <Button 
                   variant='link' 
                   type='button' 
-                  className='text-sm font-semibold text-green-500 hover:text-green-600 h-auto p-0' 
+                  className='text-sm font-semibold text-green-600 hover:text-green-700 h-auto p-0' 
                   onClick={handleRegister}
                 >
                   Cadastre-se grátis

@@ -50,8 +50,8 @@ function RouteComponent() {
               </AvatarFallback>
             </Avatar>
             <div className={cn('ml-4', !open && 'hidden')}>
-              <p className='text-white text-sm font-medium'>{user?.name}</p>
-              <p className='text-neutral-400 text-sm font-medium'>{user?.email}</p>
+              <p className='text-foreground text-sm font-medium'>{user?.name}</p>
+              <p className='text-muted-foreground text-sm font-medium'>{user?.email}</p>
             </div>
           </div>
         </SidebarHeader>
@@ -104,6 +104,7 @@ function RouteComponent() {
         <SidebarFooter>
           <SidebarMenuItem className='list-none'>
               <SidebarMenuButton 
+                onClick={() => navigate({ to: '/configuracoes' })}
                 className={cn(
                   'w-full', 
                   !open && 'justify-center p-3', 

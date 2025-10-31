@@ -57,6 +57,41 @@
       "when": 1761156590213,
       "tag": "0007_striped_mac_gargan",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1761402637564,
+      "tag": "0008_chilly_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1761860904310,
+      "tag": "0009_parallel_ezekiel",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1761861979369,
+      "tag": "0010_damp_synch",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1761862099986,
+      "tag": "0011_jittery_silverclaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1761879965981,
+      "tag": "0012_parched_shaman",
+      "breakpoints": true
     }
   ]
 }

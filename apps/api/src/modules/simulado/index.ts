@@ -11,6 +11,7 @@ import { Effect, pipe } from "effect";
 import z from "zod";
 import { amqp } from "../../config/amqp";
 import { SimuladoService } from "./service";
+import { SubscriptionService } from "../subscription/service";
 
 const prompt = (count: number, subject: string, bank: string, context: string) => `
     Você é um gerador de questões altamente especializado para concursos públicos
@@ -71,10 +72,17 @@ const prompt = (count: number, subject: string, bank: string, context: string) =
 
 export const simuladoController = new Elysia({ prefix: "/simulado" })
     .decorate("user", null as unknown as User)
-    .post("/generate", async ({ body, user }) => {
+    .post("/generate", async ({ body, user, set }) => {
         return pipe(
             Effect.tryPromise({
                 try: async () => {
+                    // Verificar limites antes de criar
+                    const canCreate = await SubscriptionService.canCreateSimulado(user.id);
+                    
+                    if (!canCreate.allowed) {
+                        set.status = 403;
+                        throw new Error(canCreate.reason || "Limite atingido");
+                    }
 
                     await SimuladoService.create({
                         count: body.count,
@@ -83,6 +91,9 @@ export const simuladoController = new Elysia({ prefix: "/simulado" })
                         title: body.title,
                         description: body.description,
                     }, user.id);
+
+                    // Incrementar uso após criar com sucesso
+                    await SubscriptionService.incrementSimuladoUsage(user.id);
 
                     return {
                         message: "Enviado a fila de processamento!",

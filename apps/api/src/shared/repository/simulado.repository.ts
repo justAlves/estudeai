@@ -4,7 +4,7 @@ import { Simulado, SimuladoWithQuestions, QuestionWithOptions } from "../entitie
 import { simulado } from "../tables/simulado.table";
 import { Effect, pipe } from "effect";
 import { logger } from "../../config/logger";
-import { asc, eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import { option, question } from "../tables/question.table";
 
 export abstract class SimuladoRepository {
@@ -68,6 +68,7 @@ export abstract class SimuladoRepository {
                             if (!questionsMap.has(questionId)) {
                                 questionsMap.set(questionId, {
                                     ...row.question,
+                                    answer: row.question.correctAnswer, // Mapear correctAnswer para answer
                                     options: [],
                                 });
                             }
@@ -104,7 +105,7 @@ export abstract class SimuladoRepository {
                     const simuladoFound = await drizzle.select({
                         simulado: simulado,
                         questions: question,
-                    }).from(simulado).where(eq(simulado.userId, userId)).leftJoin(question, eq(simulado.id, question.simuladoId)).orderBy(asc(simulado.createdAt));
+                    }).from(simulado).where(eq(simulado.userId, userId)).leftJoin(question, eq(simulado.id, question.simuladoId)).orderBy(desc(simulado.createdAt));
 
                     // Agrupar questões por simulado
                     const simuladosMap = new Map<string, SimuladoWithQuestions>();
@@ -122,6 +123,7 @@ export abstract class SimuladoRepository {
                         if (row.questions) {
                             simuladosMap.get(simuladoId)!.questions.push({
                                 ...row.questions,
+                                answer: row.questions.correctAnswer, // Mapear correctAnswer para answer
                                 options: []
                             });
                         }

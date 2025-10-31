@@ -16,6 +16,8 @@ export const UpdateSimuladoDto = z.object({
     subject: z.string().optional(),
     timeToRespond: z.number().optional(),
     score: z.number().optional(),
+    status: z.string().optional(),
+    respondedAt: z.date().optional(),
 }); 
 
 export type TUpdateSimuladoDto = z.infer<typeof UpdateSimuladoDto>;

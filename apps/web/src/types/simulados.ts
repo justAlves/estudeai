@@ -4,6 +4,7 @@ export type Option = {
   id: string
   letter: string
   text: string
+  explanation?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -14,6 +15,7 @@ export type Question = {
   question: string
   answer: string
   isCorrect: boolean
+  explanation?: string
   options: Option[]
   createdAt: Date
 }

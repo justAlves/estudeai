@@ -5,6 +5,8 @@ import { organization, organizationRelations } from "./organization.table";
 import { session, sessionRelations } from "./session.table";
 import { user, userRelations } from "./user.table";
 import { verification } from "./verification.table";
+import { redacao, redacaoRelations } from "./redacao.table";
+import { redacaoCorrection, redacaoCorrectionRelations } from "./redacaoCorrection.table";
 
 export const schema = {
   user,
@@ -14,10 +16,14 @@ export const schema = {
   verification,
   session,
   organization,
+  redacao,
+  redacaoCorrection,
   accountRelations,
   invitationRelations,
   memberRelations,
   organizationRelations,
   sessionRelations,
   userRelations,
+  redacaoRelations,
+  redacaoCorrectionRelations,
 }

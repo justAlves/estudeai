@@ -10,7 +10,8 @@ import {
   Loader2,
   CheckCircle2,
   Building2,
-  Hash
+  Hash,
+  TrendingUp
 } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import type { Simulado, SimuladoStatus } from '@/types/simulados'
@@ -28,89 +29,106 @@ export function SimuladoCard({ simulado }: SimuladoCardProps) {
   const getStatusIcon = (status: SimuladoStatus) => {
     switch (status) {
       case 'pending':
-        return <Loader2 className="w-4 h-4 animate-spin" />
+        return <Loader2 className="size-4 animate-spin" />
       case 'waiting_response':
-        return <PlayCircle className="w-4 h-4" />
+        return <PlayCircle className="size-4" />
       case 'answered':
-        return <CheckCircle2 className="w-4 h-4" />
+        return <CheckCircle2 className="size-4" />
     }
   }
 
+  const isCompleted = simulado.respondedAt !== null && simulado.score > 0
+  const canStart = simulado.questions.length > 0 && simulado.respondedAt === null
+
   return (
-    <Card className="bg-background border-green-800 hover:border-green-700 transition-all hover:shadow-lg hover:shadow-green-500/10 flex flex-col h-full">
+    <Card className="group border-border/50 hover:border-green-500/30 transition-all hover:shadow-lg hover:shadow-green-500/5 flex flex-col h-full">
       <CardHeader className="pb-4">
-        <div className="flex items-start justify-between mb-2">
-          <CardTitle className="text-white text-lg flex-1 line-clamp-2">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <CardTitle className="text-lg font-semibold flex-1 line-clamp-2 leading-tight">
             {simulado.title}
           </CardTitle>
-          <Badge className={statusConfig.className}>
+          <Badge 
+            variant="outline"
+            className={`shrink-0 ${
+              status === 'answered' 
+                ? 'bg-green-500/10 text-green-600 border-green-500/20' 
+                : status === 'pending'
+                ? 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20'
+                : 'bg-blue-500/10 text-blue-600 border-blue-500/20'
+            }`}
+          >
             {getStatusIcon(status)}
-            <span className="ml-1">{statusConfig.label}</span>
+            <span className="ml-1.5 text-xs">{statusConfig.label}</span>
           </Badge>
         </div>
-        <CardDescription className="text-neutral-400 line-clamp-2">
-          {simulado.description}
-        </CardDescription>
+        {simulado.description && (
+          <CardDescription className="line-clamp-2 text-sm">
+            {simulado.description}
+          </CardDescription>
+        )}
       </CardHeader>
       
-      <CardContent className="flex flex-col flex-1">
-        <div className="space-y-4">
-          {/* Score (se respondido) */}
-          {simulado.respondedAt !== null && simulado.score > 0 && (
-            <div className="flex items-center justify-center p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-600/10 border border-green-500/30">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-500">
+      <CardContent className="flex flex-col flex-1 space-y-4">
+        {/* Score destacado (se respondido) */}
+        {isCompleted && (
+          <div className="relative overflow-hidden rounded-lg border border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/5 p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Pontuação</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                   {simulado.score}%
-                </div>
-                <div className="text-xs text-neutral-400 mt-1">Pontuação</div>
+                </p>
+              </div>
+              <div className="size-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                <TrendingUp className="size-6 text-white" />
               </div>
             </div>
-          )}
-
-          {/* Informações principais */}
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
-              <Hash className="w-3 h-3 mr-1" />
-              {simulado.questions.length} {simulado.questions.length === 1 ? 'questão' : 'questões'}
-            </Badge>
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
-              <BookOpen className="w-3 h-3 mr-1" />
-              {simulado.subject}
-            </Badge>
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
-              <Building2 className="w-3 h-3 mr-1" />
-              {simulado.bank}
-            </Badge>
           </div>
+        )}
 
-          {/* Informações de resposta (se respondido) */}
-          {simulado.respondedAt !== null && simulado.timeToRespond > 0 && (
-            <div className="space-y-2 pt-2 border-t border-neutral-700">
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
-                <Clock className="w-4 h-4 text-green-500" />
-                <span>Tempo de resposta: </span>
-                <span className="font-semibold text-white">{formatarTempo(simulado.timeToRespond)}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
-                <Calendar className="w-4 h-4 text-blue-500" />
-                <span>Respondido: </span>
-                <span className="font-semibold text-white">{formatarData(simulado.respondedAt)}</span>
-              </div>
-            </div>
-          )}
+        {/* Informações principais */}
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="outline" className="border-border/50">
+            <Hash className="size-3 mr-1.5" />
+            <span className="text-xs">{simulado.questions.length} {simulado.questions.length === 1 ? 'questão' : 'questões'}</span>
+          </Badge>
+          <Badge variant="outline" className="border-border/50">
+            <BookOpen className="size-3 mr-1.5" />
+            <span className="text-xs">{simulado.subject}</span>
+          </Badge>
+          <Badge variant="outline" className="border-border/50">
+            <Building2 className="size-3 mr-1.5" />
+            <span className="text-xs">{simulado.bank}</span>
+          </Badge>
         </div>
 
-        {/* Espaçador com altura mínima */}
-        <div className="flex-grow min-h-[1rem]"></div>
+        {/* Informações de resposta (se respondido) */}
+        {isCompleted && simulado.timeToRespond > 0 && (
+          <div className="space-y-2 pt-2 border-t border-border/50">
+            <div className="flex items-center gap-2 text-sm">
+              <Clock className="size-4 text-green-500" />
+              <span className="text-muted-foreground">Tempo de resposta:</span>
+              <span className="font-medium">{formatarTempo(simulado.timeToRespond)}</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Calendar className="size-4 text-green-500" />
+              <span className="text-muted-foreground">Respondido:</span>
+              <span className="font-medium">{formatarData(simulado.respondedAt)}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Espaçador */}
+        <div className="flex-grow min-h-[0.5rem]"></div>
 
         {/* Botão de ação */}
         <Button 
-          className={`w-full ${
+          className={`w-full font-medium ${
             simulado.questions.length === 0
-              ? 'bg-yellow-700 hover:bg-yellow-600 cursor-not-allowed' 
-              : simulado.respondedAt !== null
-              ? 'bg-green-600 hover:bg-green-700'
-              : 'bg-blue-600 hover:bg-blue-700'
+              ? 'cursor-not-allowed opacity-60' 
+              : isCompleted
+              ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white'
+              : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white'
           }`}
           disabled={simulado.questions.length === 0}
           onClick={() => {
@@ -121,19 +139,19 @@ export function SimuladoCard({ simulado }: SimuladoCardProps) {
         >
           {simulado.questions.length === 0 && (
             <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              <Loader2 className="size-4 mr-2 animate-spin" />
               Gerando questões...
             </>
           )}
-          {simulado.questions.length > 0 && simulado.respondedAt === null && (
+          {canStart && (
             <>
-              <PlayCircle className="w-4 h-4 mr-2" />
+              <PlayCircle className="size-4 mr-2" />
               Iniciar Simulado
             </>
           )}
-          {simulado.respondedAt !== null && (
+          {isCompleted && (
             <>
-              <FileText className="w-4 h-4 mr-2" />
+              <FileText className="size-4 mr-2" />
               Ver Resultado
             </>
           )}

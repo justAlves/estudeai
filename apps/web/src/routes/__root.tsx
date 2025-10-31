@@ -15,7 +15,7 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <ThemeProvider
-      defaultTheme='dark'
+      defaultTheme='system'
     >
       <SidebarProvider>
         <Outlet />

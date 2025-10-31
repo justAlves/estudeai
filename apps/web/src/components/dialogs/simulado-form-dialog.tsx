@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -18,7 +17,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Plus } from 'lucide-react'
 import type { UseFormReturn } from 'react-hook-form'
 import type { SimuladoFormValues } from '@/lib/simulados-schema'
 
@@ -48,16 +46,10 @@ export function SimuladoFormDialog({
 }: SimuladoFormDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <Button className="bg-green-600 hover:bg-green-700">
-          <Plus className="w-4 h-4 mr-2" />
-          Novo Simulado
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] border-green-800">
+      <DialogContent className="sm:max-w-[500px] border-border">
         <DialogHeader>
-          <DialogTitle className="text-white">Criar Novo Simulado</DialogTitle>
-          <DialogDescription className="text-neutral-400">
+          <DialogTitle className="text-foreground">Criar Novo Simulado</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
             Preencha os dados para gerar um novo simulado personalizado
           </DialogDescription>
         </DialogHeader>
@@ -70,14 +62,14 @@ export function SimuladoFormDialog({
               name="quantidadeQuestoes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">
+                  <FormLabel className="text-foreground">
                     Quantidade de Questões <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       placeholder="Ex: 30"
-                      className="text-white"
+                      className="text-foreground"
                       {...field}
                     />
                   </FormControl>
@@ -92,14 +84,14 @@ export function SimuladoFormDialog({
               name="banca"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">
+                  <FormLabel className="text-foreground">
                     Banca <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       list="bancas"
                       placeholder="Ex: ENEM, FUVEST, etc."
-                      className="text-white"
+                      className="text-foreground"
                       {...field}
                     />
                   </FormControl>
@@ -119,14 +111,14 @@ export function SimuladoFormDialog({
               name="materia"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">
+                  <FormLabel className="text-foreground">
                     Matéria <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       list="materias"
                       placeholder="Ex: Matemática, Português, etc."
-                      className="text-white"
+                      className="text-foreground"
                       {...field}
                     />
                   </FormControl>
@@ -146,13 +138,13 @@ export function SimuladoFormDialog({
               name="titulo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">
+                  <FormLabel className="text-foreground">
                     Título (opcional)
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Ex: Simulado ENEM 2024 - Matemática"
-                      className="text-white"
+                      className="text-foreground"
                       {...field}
                     />
                   </FormControl>
@@ -167,13 +159,13 @@ export function SimuladoFormDialog({
               name="descricao"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">
+                  <FormLabel className="text-foreground">
                     Descrição (opcional)
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Descreva o foco deste simulado..."
-                      className="text-white min-h-[100px]"
+                      className="text-foreground min-h-[100px]"
                       {...field}
                     />
                   </FormControl>
@@ -187,13 +179,13 @@ export function SimuladoFormDialog({
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
-                className="border-neutral-600 text-neutral-300 hover:bg-neutral-800"
+                className="border-border text-foreground hover:bg-muted"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                className="bg-green-600 hover:bg-green-700"
+                className="bg-green-600 hover:bg-green-700 text-white"
               >
                 Criar Simulado
               </Button>

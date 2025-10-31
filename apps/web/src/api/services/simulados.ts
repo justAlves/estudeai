@@ -26,3 +26,25 @@ export const getSimuladoById = async (id: string) => {
     })
     return response.data
 }
+
+export const submitSimulado = async (data: {
+    simuladoId: string;
+    userId: string;
+    answers: Array<{
+        questionId: string;
+        selectedOption: string;
+    }>;
+    timeElapsed: number;
+}) => {
+    const response = await api.post("/user-response/submit", data, {
+        withCredentials: true,
+    })
+    return response.data
+}
+
+export const getUserResponses = async (simuladoId: string) => {
+    const response = await api.get(`/user-response/${simuladoId}`, {
+        withCredentials: true,
+    })
+    return response.data.data // A API retorna { success: true, data: responses }
+}

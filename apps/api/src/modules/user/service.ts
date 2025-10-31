@@ -13,4 +13,28 @@ export abstract class UserService {
    const userFounded = await drizzle.select().from(user).where(eq(user.id, id)).limit(1);
    return userFounded;
  }
+
+ static async updateUser(userId: string, data: { name?: string; email?: string; image?: string }) {
+   const updateData: any = {
+     updatedAt: new Date(),
+   }
+
+   if (data.name !== undefined) {
+     updateData.name = data.name
+   }
+   if (data.email !== undefined) {
+     updateData.email = data.email
+   }
+   if (data.image !== undefined) {
+     updateData.image = data.image
+   }
+
+   const updatedUser = await drizzle
+     .update(user)
+     .set(updateData)
+     .where(eq(user.id, userId))
+     .returning()
+
+   return updatedUser[0]
+ }
 }

@@ -15,6 +15,9 @@ const envSchema = z.object({
     BETTER_AUTH_URL: z.string(),
     GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
     AMQP_URL: z.string(),
+    STRIPE_SECRET_KEY: z.string(),
+    STRIPE_WEBHOOK_SECRET: z.string(),
+    STRIPE_PRICE_ID: z.string(),
 })
 
 export const env = envSchema.parse(process.env)

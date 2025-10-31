@@ -5,20 +5,24 @@ import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { 
   Clock, 
-  CheckCircle2, 
   ArrowLeft, 
   ArrowRight,
   BookOpen,
   Hash,
   Building2
 } from 'lucide-react'
-import type { Question, Option } from '@/types/simulados'
+import type { Question } from '@/types/simulados'
+import { useSubmitSimulado } from '@/api/hooks/useSubmitSimulado'
+import { useUserStore } from '@/store/user.store'
+import { SimuladoResults } from './simulado-results'
 
 interface ModernQuestionaryProps {
   questions: Question[]
   simuladoTitle: string
   simuladoBank: string
   simuladoSubject: string
+  simuladoId: string
+  onBackToSimulados?: () => void
 }
 
 interface Answer {
@@ -30,16 +34,28 @@ export function ModernQuestionary({
   questions, 
   simuladoTitle, 
   simuladoBank, 
-  simuladoSubject 
+  simuladoSubject,
+  simuladoId,
+  onBackToSimulados
 }: ModernQuestionaryProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
   const [timeElapsed, setTimeElapsed] = useState(0)
   const [isCompleted, setIsCompleted] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const { user } = useUserStore()
+  const submitSimuladoMutation = useSubmitSimulado()
 
   const currentQuestion = questions[currentQuestionIndex]
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100
+
+  const getSelectedAnswer = (questionId: string) => {
+    return answers.find(answer => answer.questionId === questionId)?.selectedOption
+  }
+
+  const hasCurrentAnswer = getSelectedAnswer(currentQuestion.id)
 
   // Timer
   useEffect(() => {
@@ -72,16 +88,41 @@ export function ModernQuestionary({
     }
   }
 
-  const getSelectedAnswer = (questionId: string) => {
-    return answers.find(answer => answer.questionId === questionId)?.selectedOption
-  }
+  const handleNext = async () => {
+    // Verificar se há uma resposta selecionada para a questão atual
+    const hasAnswer = getSelectedAnswer(currentQuestion.id)
+    if (!hasAnswer) {
+      return // Não permite prosseguir sem resposta
+    }
 
-  const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1)
     } else {
+      // Finalizar simulado - salvar respostas
+      await handleSubmitSimulado()
+    }
+  }
+
+  const handleSubmitSimulado = async () => {
+    if (!user?.id || isSubmitting) return
+
+    setIsSubmitting(true)
+    
+    try {
+      await submitSimuladoMutation.mutateAsync({
+        simuladoId,
+        userId: user.id,
+        answers,
+        timeElapsed,
+      })
+      
       setIsCompleted(true)
       setShowResults(true)
+    } catch (error) {
+      console.error('Erro ao submeter simulado:', error)
+      // Aqui você pode adicionar um toast de erro se tiver
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -97,148 +138,85 @@ export function ModernQuestionary({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
   }
 
-  const calculateScore = () => {
-    let correct = 0
-    answers.forEach(answer => {
-      const question = questions.find(q => q.id === answer.questionId)
-      if (question && answer.selectedOption === question.correctAnswer) {
-        correct++
-      }
-    })
-    return Math.round((correct / questions.length) * 100)
-  }
 
   if (showResults) {
-    const score = calculateScore()
     return (
-      <div className="w-full max-w-4xl mx-auto p-6">
-        <Card className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border-green-500/30">
-          <CardHeader className="text-center">
-            <div className="mx-auto w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle2 className="w-10 h-10 text-green-500" />
-            </div>
-            <CardTitle className="text-3xl font-bold text-white mb-2">
-              Simulado Concluído!
-            </CardTitle>
-            <p className="text-neutral-400">
-              Parabéns! Você finalizou o simulado com sucesso.
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-white/5 rounded-lg">
-                <div className="text-3xl font-bold text-green-500">{score}%</div>
-                <div className="text-sm text-neutral-400">Pontuação</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg">
-                <div className="text-3xl font-bold text-blue-500">{formatTime(timeElapsed)}</div>
-                <div className="text-sm text-neutral-400">Tempo Total</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg">
-                <div className="text-3xl font-bold text-purple-500">{questions.length}</div>
-                <div className="text-sm text-neutral-400">Questões</div>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white">Resumo das Respostas</h3>
-              <div className="space-y-2">
-                {questions.map((question, index) => {
-                  const userAnswer = getSelectedAnswer(question.id)
-                  const isCorrect = userAnswer === question.correctAnswer
-                  
-                  return (
-                    <div key={question.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm font-medium text-neutral-300">
-                          Questão {index + 1}
-                        </span>
-                        <Badge 
-                          className={isCorrect 
-                            ? 'bg-green-500/20 text-green-500 border-green-500/30' 
-                            : 'bg-red-500/20 text-red-500 border-red-500/30'
-                          }
-                        >
-                          {isCorrect ? 'Correta' : 'Incorreta'}
-                        </Badge>
-                      </div>
-                      <div className="text-sm text-neutral-400">
-                        Sua resposta: <span className="font-medium">{userAnswer || 'Não respondida'}</span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+        <SimuladoResults
+          questions={questions}
+          answers={answers}
+          timeElapsed={timeElapsed}
+          simuladoBank={simuladoBank}
+          simuladoSubject={simuladoSubject}
+          onBackToSimulados={onBackToSimulados || (() => {})}
+        />
     )
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
+      <div className="mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+            <Badge variant="outline" className="text-foreground border-border text-xs">
               <Hash className="w-3 h-3 mr-1" />
               {questions.length} questões
             </Badge>
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
+            <Badge variant="outline" className="text-foreground border-border text-xs">
               <BookOpen className="w-3 h-3 mr-1" />
-              {simuladoSubject}
+              <span className="hidden sm:inline">{simuladoSubject}</span>
+              <span className="sm:hidden">{simuladoSubject.slice(0, 10)}...</span>
             </Badge>
-            <Badge variant="outline" className="text-neutral-300 border-neutral-600">
+            <Badge variant="outline" className="text-foreground border-border text-xs">
               <Building2 className="w-3 h-3 mr-1" />
-              {simuladoBank}
+              <span className="hidden sm:inline">{simuladoBank}</span>
+              <span className="sm:hidden">{simuladoBank.slice(0, 10)}...</span>
             </Badge>
           </div>
-          <div className="flex items-center gap-2 text-sm text-neutral-400">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Clock className="w-4 h-4" />
             <span>{formatTime(timeElapsed)}</span>
           </div>
         </div>
         
-        <h1 className="text-2xl font-bold text-white mb-2">{simuladoTitle}</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 break-words">{simuladoTitle}</h1>
         <Progress value={progress} className="h-2" />
-        <div className="flex justify-between text-sm text-neutral-400 mt-2">
+        <div className="flex justify-between text-xs sm:text-sm text-muted-foreground mt-2">
           <span>Questão {currentQuestionIndex + 1} de {questions.length}</span>
           <span>{Math.round(progress)}% concluído</span>
         </div>
       </div>
 
       {/* Question Card */}
-      <Card className="bg-background border-green-800 mb-6">
-        <CardHeader>
-          <CardTitle className="text-xl text-white leading-relaxed">
+      <Card className="bg-background border-border mb-4 sm:mb-6">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-lg sm:text-xl text-foreground leading-relaxed break-words">
             {currentQuestion.question}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-2 sm:space-y-3">
           {currentQuestion.options.map((option) => {
             const isSelected = getSelectedAnswer(currentQuestion.id) === option.letter
             return (
               <Button
                 key={option.id}
                 variant={isSelected ? "default" : "outline"}
-                className={`w-full justify-start h-auto p-4 text-left ${
+                className={`w-full justify-start h-auto min-h-[60px] p-3 sm:p-4 text-left ${
                   isSelected 
-                    ? 'bg-green-600 hover:bg-green-700 border-green-500' 
-                    : 'border-neutral-600 hover:border-green-500 hover:bg-green-500/10'
+                    ? 'bg-green-600 hover:bg-green-700 border-green-500 text-white' 
+                    : 'border-border hover:border-green-500 hover:bg-green-500/10'
                 }`}
                 onClick={() => handleAnswerSelect(option.letter)}
               >
-                <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                <div className="flex items-start gap-3 w-full">
+                  <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0 mt-0.5 ${
                     isSelected 
                       ? 'bg-white text-green-600' 
-                      : 'bg-neutral-700 text-neutral-300'
+                      : 'bg-muted text-muted-foreground'
                   }`}>
                     {option.letter}
                   </div>
-                  <span className="text-white">{option.text}</span>
+                  <span className="text-foreground text-sm sm:text-base flex-1 break-words whitespace-normal leading-relaxed">{option.text}</span>
                 </div>
               </Button>
             )
@@ -247,24 +225,56 @@ export function ModernQuestionary({
       </Card>
 
       {/* Navigation */}
-      <div className="flex justify-between">
-        <Button
-          variant="outline"
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-          className="border-neutral-600 text-neutral-300 hover:bg-neutral-800"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Anterior
-        </Button>
+      <div className="space-y-3">
+        {!hasCurrentAnswer && (
+          <div className="text-center">
+            <p className="text-sm text-amber-400 flex items-center justify-center gap-2">
+              <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+              Selecione uma resposta para continuar
+            </p>
+          </div>
+        )}
         
-        <Button
-          onClick={handleNext}
-          className="bg-green-600 hover:bg-green-700"
-        >
-          {currentQuestionIndex === questions.length - 1 ? 'Finalizar' : 'Próxima'}
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
+        <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+          <Button
+            variant="outline"
+            onClick={handlePrevious}
+            disabled={currentQuestionIndex === 0}
+            className="border-border text-foreground hover:bg-muted w-full sm:w-[49%]"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Anterior</span>
+            <span className="sm:hidden">← Anterior</span>
+          </Button>
+          
+          <Button
+            onClick={handleNext}
+            disabled={!hasCurrentAnswer || isSubmitting}
+            className={`w-full sm:w-[49%] ${
+              hasCurrentAnswer && !isSubmitting
+                ? 'bg-green-600 hover:bg-green-700 text-white' 
+                : 'bg-muted cursor-not-allowed opacity-50'
+            }`}
+          >
+            <span className="hidden sm:inline">
+              {isSubmitting 
+                ? 'Salvando...' 
+                : currentQuestionIndex === questions.length - 1 
+                  ? 'Finalizar' 
+                  : 'Próxima'
+              }
+            </span>
+            <span className="sm:hidden">
+              {isSubmitting 
+                ? 'Salvando...' 
+                : currentQuestionIndex === questions.length - 1 
+                  ? 'Finalizar' 
+                  : 'Próxima →'
+              }
+            </span>
+            {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2 hidden sm:inline" />}
+          </Button>
+        </div>
       </div>
     </div>
   )
