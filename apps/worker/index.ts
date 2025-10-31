@@ -170,6 +170,28 @@ const runnable = program.pipe(
     Effect.provide(DrizzleLive)
 );
 
+// Servidor HTTP simples para health checks do Cloud Run
+const PORT = parseInt(process.env.PORT || "8080", 10);
+
+const server = Bun.serve({
+    port: PORT,
+    async fetch(req) {
+        const url = new URL(req.url);
+        
+        // Health check endpoint
+        if (url.pathname === "/" || url.pathname === "/health") {
+            return new Response(JSON.stringify({ status: "healthy", service: "worker" }), {
+                headers: { "Content-Type": "application/json" },
+            });
+        }
+        
+        return new Response("Not Found", { status: 404 });
+    },
+});
+
+console.log(`🏥 Health check server listening on port ${PORT}`);
+
+// Iniciar o worker
 Effect.runPromise(runnable).catch((error) => {
     console.error("Failed to start worker:", error);
     process.exit(1);

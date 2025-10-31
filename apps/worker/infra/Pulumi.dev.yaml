@@ -1,0 +1,7 @@
+config:
+  gcp:project: estudeai15
+  gcp:region: us-central1
+  estudeai-worker-infra:project: estudeai15
+  estudeai-worker-infra:region: us-central1
+  estudeai-worker-infra:imageTag: latest
+

@@ -1,0 +1,9 @@
+config:
+  gcp:project: estudeai15
+  gcp:region: us-central1
+  estudeai-worker-infra:project: estudeai15
+  estudeai-worker-infra:region: us-central1
+  estudeai-worker-infra:imageTag: latest
+  # Defina como false para criar apenas o Artifact Registry e Service Account
+  # Depois de fazer build e push da imagem, defina como true e faça pulumi up novamente
+  estudeai-worker-infra:createCloudRunService: true

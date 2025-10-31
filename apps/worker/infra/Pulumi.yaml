@@ -1,0 +1,12 @@
+name: estudeai-worker-infra
+description: Infrastructure for EstudeAI Worker on Google Cloud Platform
+runtime:
+  name: nodejs
+  options:
+    packagemanager: bun
+config:
+  pulumi:tags:
+    value:
+      project: estudeai
+      environment: production
+
