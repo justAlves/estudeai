@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useEffect, useRef } from "react"
 import { getRedacoes, getRedacaoById, createRedacao, updateRedacao, sendRedacaoForCorrection } from "../services/redacoes"
 import { getContext } from "@/integrations/tanstack-query/root-provider"
 import { toast } from "sonner"
@@ -19,14 +20,31 @@ export const useGetRedacaoById = (id: string) => {
         queryKey: ["redacao", id],
         queryFn: () => getRedacaoById(id),
         enabled: !!id,
-        refetchInterval: (query) => {
-            // Se está corrigindo, refetch mais frequentemente
-            if (query.data?.status === "correcting") {
-                return 1000 * 10 // A cada 10 segundos
-            }
-            return false
-        },
     })
+    
+    // Refetch mais frequentemente se estiver corrigindo
+    const isCorrecting = query.data?.status === "correcting"
+    const intervalRef = useRef<NodeJS.Timeout | null>(null)
+    
+    useEffect(() => {
+        if (isCorrecting) {
+            intervalRef.current = setInterval(() => {
+                query.refetch()
+            }, 1000 * 10) // A cada 10 segundos
+        } else {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current)
+                intervalRef.current = null
+            }
+        }
+        
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current)
+            }
+        }
+    }, [isCorrecting, query])
+    
     return query
 }
 
